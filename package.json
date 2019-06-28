@@ -1,6 +1,6 @@
 {
   "name": "eth-abi-decoder",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Ethereum transaction raw data decoder",
   "main": "index.js",
   "repository": "git@github.com:ppoliani/eth-abi-decoder.git",
