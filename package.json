@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "git@github.com:ppoliani/eth-abi-decoder.git",
   "author": "ppoliani <ppoliani@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "web3": "1.0.0-beta.37"
+  }
 }
