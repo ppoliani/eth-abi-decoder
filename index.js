@@ -27,12 +27,27 @@ const addABI = abiArray => {
   }
 }
 
+const wrapParamInfo = (name, type, components) => ({name, type, components})
+const getArrayType = type => type.replace('[]', '');
+
 const decodeParam = (paramInfo, value) => {
   const {components, type} = paramInfo;
   let parsedValue;
 
-  if(components) {
-    parsedValue = components.map(c => decodeParam(c, value[c.name]))
+  if(type.endsWith('[]')) {
+    parsedValue =  value.map((v, i) => decodeParam(wrapParamInfo(i, getArrayType(type), components), v));
+  }
+  else if(type === 'tuple') {
+    parsedValue = components.map(c => {
+      const isTuple = value[c.name] !== undefined;
+
+      if(isTuple) {
+        return decodeParam(c, value[c.name])
+      }
+      else {
+        return value.map((v, i) => decodeParam(wrapParamInfo(i, 'tuple'), v))
+      }
+    })
   }
   else if(type === 'bytes32') {
     try {
